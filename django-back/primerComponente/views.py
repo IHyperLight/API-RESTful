@@ -18,9 +18,9 @@ class PrimerTablaList(APIView):
 
     def response_custom(self, message, pay_load, status):
         response_dictionary = {
-            'message': message,
-            'pay_load': pay_load,
-            'status': status
+            "message": message,
+            "pay_load": pay_load,
+            "status": status,
         }
         response_string = json.dumps(response_dictionary)
         response_json = json.loads(response_string)
@@ -29,7 +29,8 @@ class PrimerTablaList(APIView):
     def get(self, request, format=None):
         queryset = PrimerTabla.objects.all()
         serializer = PrimerTablaSerializer(
-            queryset, many=True, context={'request': request})
+            queryset, many=True, context={"request": request}
+        )
         response = self.response_custom("Success", serializer.data, 200)
         return Response(response)
 
@@ -39,11 +40,13 @@ class PrimerTablaList(APIView):
             serializer.save()
             datas = serializer.data
             response = self.response_custom(
-                "Success", datas, status=status.HTTP_201_CREATED)
+                "Success", datas, status=status.HTTP_201_CREATED
+            )
             return Response(response)
         else:
             response = self.response_custom(
-                "Error", serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                "Error", serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            )
             return Response(response)
 
 

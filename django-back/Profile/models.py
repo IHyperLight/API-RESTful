@@ -12,4 +12,5 @@ class ProfileModels(models.Model):
         blank=False,
     )
     url_img = models.ImageField(
-        null=True, blank=True, default="", upload_to='img-profile/')
+        null=True, blank=True, default="", upload_to="img-profile/"
+    )
