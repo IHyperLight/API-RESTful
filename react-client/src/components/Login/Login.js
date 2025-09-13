@@ -1,10 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 import API_BASE_URL from "../../config/api";
 
 function Login() {
+    let navigate = useNavigate();
+    
     const consumir_login = () => {
         var postData = {
             username: document.getElementById("username").value,
@@ -18,7 +20,7 @@ function Login() {
             .then((response) => {
                 localStorage.setItem("token", response.data["token"]);
                 localStorage.setItem("id_user", response.data["user_id"]);
-                window.location = "/profile";
+                navigate("/profile");
             })
             .catch((error) => {
                 console.log(error.response.data);
