@@ -17,8 +17,6 @@ function Profile() {
     
     const user = localStorage.getItem("id_user");
     const token = localStorage.getItem("token");
-    
-    console.log("Profile component - user:", user, "token:", token ? "existe" : "no existe");
 
     // Función para manejar la selección de archivo
     const handleFileSelect = (file) => {
@@ -27,8 +25,6 @@ function Profile() {
 
     // Función para cargar datos del usuario
     const loadUserData = useCallback(() => {
-        console.log("Cargando datos del usuario...", user, token);
-        
         // Cargar datos básicos del usuario (username, email, etc.)
         axios
             .get(`${API_BASE_URL}/api/v1/profile/update/` + user + "/", {
@@ -37,7 +33,6 @@ function Profile() {
                 },
             })
             .then((response) => {
-                console.log("Datos del usuario cargados:", response.data);
                 setUserData({
                     username: response.data.username,
                     email: response.data.email,
@@ -47,10 +42,6 @@ function Profile() {
             })
             .catch((error) => {
                 console.log("Error al cargar datos del usuario:", error);
-                if (error.response) {
-                    console.log("Error response:", error.response.data);
-                    console.log("Status:", error.response.status);
-                }
             });
 
         // Cargar imagen del perfil
@@ -61,7 +52,6 @@ function Profile() {
                 },
             })
             .then((response) => {
-                console.log("Imagen del perfil cargada:", response.data);
                 if (response.data.url_img) {
                     setProfileImg(`${API_BASE_URL}` + response.data.url_img);
                 } else {
@@ -69,7 +59,6 @@ function Profile() {
                 }
             })
             .catch((error) => {
-                console.log("No hay imagen de perfil o error:", error.response?.data || error.message);
                 // Usar imagen por defecto si no hay imagen de perfil
                 setProfileImg("https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM=");
             });
@@ -194,16 +183,6 @@ function Profile() {
 
     return (
         <div className="Profile-container">
-            {/* Debug info */}
-            <div style={{background: '#f0f0f0', padding: '10px', margin: '10px', fontSize: '12px'}}>
-                <strong>Debug Info:</strong><br/>
-                Username: {userData.username || 'Sin datos'}<br/>
-                Email: {userData.email || 'Sin datos'}<br/>
-                First Name: {userData.first_name || 'Sin datos'}<br/>
-                Last Name: {userData.last_name || 'Sin datos'}<br/>
-                Profile Image: {profileImg ? 'Cargada' : 'Sin imagen'}
-            </div>
-            
             <div className="Profile-left">
                 <div className="Profile-image">
                     <img alt="img" src={profileImg || 'https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM='} />
