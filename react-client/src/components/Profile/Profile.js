@@ -17,6 +17,8 @@ function Profile() {
     
     const user = localStorage.getItem("id_user");
     const token = localStorage.getItem("token");
+    
+    console.log("Profile component - user:", user, "token:", token ? "existe" : "no existe");
 
     // Función para manejar la selección de archivo
     const handleFileSelect = (file) => {
@@ -25,6 +27,33 @@ function Profile() {
 
     // Función para cargar datos del usuario
     const loadUserData = useCallback(() => {
+        console.log("Cargando datos del usuario...", user, token);
+        
+        // Cargar datos básicos del usuario (username, email, etc.)
+        axios
+            .get(`${API_BASE_URL}/api/v1/profile/update/` + user + "/", {
+                headers: {
+                    Authorization: "Token " + token,
+                },
+            })
+            .then((response) => {
+                console.log("Datos del usuario cargados:", response.data);
+                setUserData({
+                    username: response.data.username,
+                    email: response.data.email,
+                    first_name: response.data.first_name,
+                    last_name: response.data.last_name
+                });
+            })
+            .catch((error) => {
+                console.log("Error al cargar datos del usuario:", error);
+                if (error.response) {
+                    console.log("Error response:", error.response.data);
+                    console.log("Status:", error.response.status);
+                }
+            });
+
+        // Cargar imagen del perfil
         axios
             .get(`${API_BASE_URL}/api/v1/profile/user/` + user + "/", {
                 headers: {
@@ -32,24 +61,19 @@ function Profile() {
                 },
             })
             .then((response) => {
-                setUserData({
-                    username: response.data.username,
-                    email: response.data.email,
-                    first_name: response.data.first_name,
-                    last_name: response.data.last_name
-                });
-                
-                if (response.data.url_img != null) {
+                console.log("Imagen del perfil cargada:", response.data);
+                if (response.data.url_img) {
                     setProfileImg(`${API_BASE_URL}` + response.data.url_img);
                 } else {
                     setProfileImg("https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM=");
                 }
             })
             .catch((error) => {
-                console.log(error);
-                navigate("/login");
+                console.log("No hay imagen de perfil o error:", error.response?.data || error.message);
+                // Usar imagen por defecto si no hay imagen de perfil
+                setProfileImg("https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM=");
             });
-    }, [user, token, navigate]);
+    }, [user, token]);
 
     useEffect(() => {
         if (!user || !token) {
@@ -170,9 +194,19 @@ function Profile() {
 
     return (
         <div className="Profile-container">
+            {/* Debug info */}
+            <div style={{background: '#f0f0f0', padding: '10px', margin: '10px', fontSize: '12px'}}>
+                <strong>Debug Info:</strong><br/>
+                Username: {userData.username || 'Sin datos'}<br/>
+                Email: {userData.email || 'Sin datos'}<br/>
+                First Name: {userData.first_name || 'Sin datos'}<br/>
+                Last Name: {userData.last_name || 'Sin datos'}<br/>
+                Profile Image: {profileImg ? 'Cargada' : 'Sin imagen'}
+            </div>
+            
             <div className="Profile-left">
                 <div className="Profile-image">
-                    <img alt="img" src={profileImg || '/path/to/default/image.jpg'} />
+                    <img alt="img" src={profileImg || 'https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM='} />
                 </div>
                 <div className="Profile-image-options">
                     <label id="Profile-image-submit1">
