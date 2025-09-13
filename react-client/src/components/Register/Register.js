@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./Register.css";
+import API_BASE_URL from "../../config/api";
 
 function Register() {
     let navigate = useNavigate();
@@ -17,7 +18,7 @@ function Register() {
         };
 
         axios
-            .post("http://localhost:8000/api/v1/registro/crear/", postData, {
+            .post(`${API_BASE_URL}/api/v1/registro/crear/`, postData, {
                 Headers: { "Content-Type": "application/json" },
             })
             .then((response) => {

@@ -96,12 +96,16 @@ Una vez desplegado, tendrás:
    ```
 4. El frontend se rebuildeará automáticamente
 
+⚠️ **IMPORTANTE**: Asegúrate de NO incluir la barra final `/` en la URL del backend.
+
 ## ✅ Verificación
 
 1. Abre la URL del frontend
 2. Intenta registrar un usuario
 3. Inicia sesión
 4. Verifica que puedas acceder al perfil
+
+**NOTA**: Todas las URLs del frontend ya están configuradas dinámicamente. Cambiará automáticamente entre localhost (desarrollo) y tu URL de Render (producción).
 
 ## 🚨 Notas Importantes
 

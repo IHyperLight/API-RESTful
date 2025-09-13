@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./Login.css";
+import API_BASE_URL from "../../config/api";
 
 function Login() {
     const consumir_login = () => {
@@ -11,7 +12,7 @@ function Login() {
         };
 
         axios
-            .post("http://localhost:8000/api/v1/login", postData, {
+            .post(`${API_BASE_URL}/api/v1/login`, postData, {
                 Headers: { "Content-Type": "application/json" },
             })
             .then((response) => {

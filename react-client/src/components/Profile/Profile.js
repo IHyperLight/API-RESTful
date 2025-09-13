@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Profile.css";
+import API_BASE_URL from "../../config/api";
 
 function Profile() {
     let response_username,
@@ -18,7 +19,7 @@ function Profile() {
         postData.append("url_img", fileImage);
 
         axios
-            .post("http://localhost:8000/api/v1/profile/list", postData, {
+            .post(`${API_BASE_URL}/api/v1/profile/list`, postData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: "Token " + token,
@@ -30,7 +31,7 @@ function Profile() {
                         put_img();
                     } else {
                         profile_img =
-                            "http://localhost:8000" + response.data.url_img;
+                            `${API_BASE_URL}` + response.data.url_img;
                         document.getElementById("img").src = profile_img;
                         window.location.reload();
                     }
@@ -49,7 +50,7 @@ function Profile() {
 
         axios
             .put(
-                "http://localhost:8000/api/v1/profile/user/" + user + "/",
+                `${API_BASE_URL}/api/v1/profile/user/` + user + "/",
                 putData,
                 {
                     headers: {
@@ -59,7 +60,7 @@ function Profile() {
                 }
             )
             .then((response) => {
-                profile_img = "http://localhost:8000" + response.data.url_img;
+                profile_img = `${API_BASE_URL}` + response.data.url_img;
                 document.getElementById("img").src = profile_img;
                 window.location.reload();
             })
@@ -70,7 +71,7 @@ function Profile() {
 
     let delete_img = () => {
         axios
-            .delete("http://localhost:8000/api/v1/profile/user/" + user + "/", {
+            .delete(`${API_BASE_URL}/api/v1/profile/user/` + user + "/", {
                 headers: {
                     Authorization: "Token " + token,
                 },
@@ -85,7 +86,7 @@ function Profile() {
 
     window.onload = function visualize_data() {
         axios
-            .get("http://localhost:8000/api/v1/profile/user/" + user + "/", {
+            .get(`${API_BASE_URL}/api/v1/profile/user/` + user + "/", {
                 headers: {
                     Authorization: "Token " + token,
                 },
@@ -93,7 +94,7 @@ function Profile() {
             .then((response) => {
                 if (response.data.url_img != null) {
                     profile_img =
-                        "http://localhost:8000" + response.data.url_img;
+                        `${API_BASE_URL}` + response.data.url_img;
                     document.getElementById("img").src = profile_img;
                 } else {
                     document.getElementById("img").src =
@@ -106,7 +107,7 @@ function Profile() {
             });
 
         axios
-            .get("http://localhost:8000/api/v1/profile/update/" + user + "/", {
+            .get(`${API_BASE_URL}/api/v1/profile/update/` + user + "/", {
                 headers: {
                     Authorization: "Token " + token,
                 },
@@ -155,7 +156,7 @@ function Profile() {
 
         axios
             .put(
-                "http://localhost:8000/api/v1/profile/update/" + user + "/",
+                `${API_BASE_URL}/api/v1/profile/update/` + user + "/",
                 putData,
                 {
                     headers: {
