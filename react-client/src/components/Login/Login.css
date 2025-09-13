@@ -1,0 +1,239 @@
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+:root {
+    --card-height: 65vh;
+    --card-width: calc(var(--card-height) / 1.5);
+}
+
+body {
+    min-height: 100vh;
+    background-image: radial-gradient(
+        circle farthest-corner at 10% 20%,
+        rgb(30, 30, 30) 0%,
+        rgb(0, 0, 0) 100%
+    );
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+    font-family: "Inter UI", sans-serif;
+}
+
+.Login-container {
+    display: flex;
+    height: 320px;
+    margin: 0 auto;
+    width: 740px;
+    margin-top: 10%;
+}
+
+@media (max-width: 800px) {
+    .Login-container {
+        flex-direction: column;
+        height: 100%;
+        width: 340px;
+    }
+}
+
+.Login-left {
+    height: calc(100% - 40px);
+    top: 20px;
+    position: relative;
+    width: 55%;
+}
+
+@media (max-width: 800px) {
+    .Login-left {
+        height: 100%;
+        width: 120%;
+        max-height: 100%;
+        margin-top: -20%;
+        left: -10%;
+    }
+}
+
+.Login-title {
+    background: -webkit-linear-gradient(
+        120deg,
+        rgba(78, 0, 194, 1) 30%,
+        rgba(255, 0, 106, 1) 50%,
+        rgba(255, 93, 142, 1) 70%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 80px;
+    font-weight: 600;
+    margin: 40px 40px 40px;
+}
+
+.Login-eula {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 40px;
+}
+
+.Login-right {
+    height: calc(146% - 40px);
+    width: 45%;
+    background: linear-gradient(-30deg, #303030, #202020, #101010, #000000);
+    position: relative;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 800px) {
+    .Login-right {
+        height: 429px;
+        width: 100%;
+        max-height: 100%;
+    }
+}
+
+.Login-right::before {
+    content: "";
+    width: 104%;
+    height: 102%;
+    border-radius: 8px;
+    background-image: linear-gradient(
+        var(--rotate),
+        #ff5d8e,
+        #ff006a 43%,
+        #4e00c2 /* #5ddcff,
+        #3c67e3 43%,
+        #4e00c2 */
+    );
+    position: absolute;
+    z-index: -1;
+    top: -1%;
+    left: -2%;
+    animation: spin 2.5s linear infinite;
+}
+
+.Login-right::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(
+        var(--rotate),
+        #ff5d8e,
+        #ff006a 43%,
+        #4e00c2
+    );
+    opacity: 1;
+    transition: opacity 0.5s;
+    animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        --rotate: 0deg;
+    }
+    100% {
+        --rotate: 360deg;
+    }
+}
+
+.Login-flexbox {
+    display: flex;
+    flex-direction: column;
+    padding: 1px;
+}
+
+.Login-item {
+    margin: 0px;
+}
+
+label {
+    color: #c2c2c5;
+    display: block;
+    font-size: 15px;
+    height: 16px;
+    margin-top: 10%;
+    margin-bottom: 3%;
+}
+
+input {
+    background: transparent;
+    border: 0;
+    color: #f2f2f2;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    outline: none !important;
+    width: 100%;
+}
+
+input::-moz-focus-inner {
+    border: 0;
+}
+
+#Login-margin {
+    margin-top: 0px;
+}
+
+#Login-show {
+    background: transparent;
+    border: 0;
+    color: #c2c2c5;
+    font-size: 12px;
+    position: absolute;
+    bottom: 92%;
+    left: 88%;
+}
+
+#Login-submit1 {
+    background: transparent;
+    border: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 120px;
+    transition: color 300ms;
+    width: 100%;
+}
+
+#Login-submit1:active {
+    color: #707075;
+}
+
+#Login-submit2 {
+    background: transparent;
+    border: 0;
+    color: #707075;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    transition: color 300ms;
+    width: 100%;
+}
+
+#Login-submit2:focus {
+    color: #f2f2f2;
+}
+
+#Login-submit2:active {
+    color: #d0d0d2;
+}

@@ -1,0 +1,320 @@
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+:root {
+    --card-height: 65vh;
+    --card-width: calc(var(--card-height) / 1.5);
+}
+
+body {
+    min-height: 100vh;
+    background-image: radial-gradient(
+        circle farthest-corner at 10% 20%,
+        rgb(30, 30, 30) 0%,
+        rgb(0, 0, 0) 100%
+    );
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+    font-family: "Inter UI", sans-serif;
+}
+
+.Profile-container {
+    display: flex;
+    height: 320px;
+    margin: 0 auto;
+    width: 740px;
+    margin-top: 10%;
+}
+
+@media (max-width: 800px) {
+    .Profile-container {
+        flex-direction: column;
+        height: 100%;
+        width: 340px;
+    }
+}
+
+.Profile-left {
+    height: calc(100% - 40px);
+    top: 20px;
+    position: relative;
+    width: 55%;
+}
+
+@media (max-width: 800px) {
+    .Profile-left {
+        height: 100%;
+        width: 120%;
+        max-height: 100%;
+        margin-bottom: 10%;
+        left: -10%;
+    }
+}
+
+.Profile-title {
+    background: -webkit-linear-gradient(
+        120deg,
+        #ff006a 25%,
+        #00f7ff 50%,
+        #15ff00 75%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 80px;
+    font-weight: 600;
+    margin: 40px 40px 40px;
+}
+
+.Profile-eula {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 40px;
+}
+
+.Profile-image {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    left: 18%;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    box-shadow: inset 0 0 50px black, 0 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: outset 0 0 50px black, 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.Profile-image img {
+    width: 100%;
+    height: 300px;
+}
+
+.Profile-image-options {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#Profile-image-submit1 {
+    margin: 10px 0px;
+    padding: 12px 12px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-image: linear-gradient(
+        to right,
+        #000000 0%,
+        #232526 51%,
+        #000000 100%
+    );
+    background-size: 200% auto;
+    color: rgb(180, 180, 180);
+    box-shadow: 0 0 20px rgb(0, 0, 0);
+    border-radius: 10px;
+    display: block;
+    border: none;
+    font-weight: bold;
+}
+
+#Profile-image-submit1:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+#Profile-image-submit2 {
+    margin: 10px 0px;
+    padding: 12px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-image: linear-gradient(
+        to right,
+        #232526 0%,
+        #414345 51%,
+        #232526 100%
+    );
+    background-size: 200% auto;
+    color: rgb(180, 180, 180);
+    box-shadow: 0 0 20px rgb(0, 0, 0);
+    border-radius: 10px;
+    display: block;
+    border: none;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#Profile-image-submit2:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.Profile-right {
+    height: calc(146% - 40px);
+    width: 45%;
+    background: linear-gradient(-30deg, #303030, #202020, #101010, #000000);
+    position: relative;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 800px) {
+    .Profile-right {
+        height: 429px;
+        width: 100%;
+        max-height: 100%;
+    }
+}
+
+.Profile-right::before {
+    content: "";
+    width: 104%;
+    height: 102%;
+    border-radius: 8px;
+    background-image: linear-gradient(
+        var(--rotate),
+        #15ff00,
+        #00f7ff,
+        #ff006a /* #5ddcff,
+          #3c67e3 43%,
+          #4e00c2 */
+    );
+    position: absolute;
+    z-index: -1;
+    top: -1%;
+    left: -2%;
+    animation: spin 2.5s linear infinite;
+}
+
+.Profile-right::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #15ff00, #5ddcff, #ff006a);
+    opacity: 1;
+    transition: opacity 0.5s;
+    animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        --rotate: 0deg;
+    }
+    100% {
+        --rotate: 360deg;
+    }
+}
+
+.Profile-flexbox {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 1px;
+}
+
+.Profile-item {
+    margin: 0px;
+}
+
+label {
+    color: #c2c2c5;
+    display: block;
+    font-size: 15px;
+    height: 16px;
+    margin-top: 10%;
+    margin-bottom: 3%;
+}
+
+input {
+    background: transparent;
+    border: 0;
+    color: #f2f2f2;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    outline: none !important;
+    width: 100%;
+}
+
+input::-moz-focus-inner {
+    border: 0;
+}
+
+#Profile-margin {
+    margin-top: 30px;
+}
+
+#Profile-show {
+    background: transparent;
+    border: 0;
+    color: #c2c2c5;
+    font-size: 12px;
+    position: absolute;
+    bottom: 92%;
+    left: 88%;
+}
+
+#Profile-submit1 {
+    background: transparent;
+    border: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 80px;
+    transition: color 300ms;
+    width: 100%;
+}
+
+#Profile-submit1:active {
+    color: #707075;
+}
+
+#Profile-submit2 {
+    background: transparent;
+    border: 0;
+    color: #707075;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 60px;
+    transition: color 300ms;
+    width: 100%;
+}
+
+#Profile-submit2:focus {
+    color: #f2f2f2;
+}
+
+#Profile-submit2:active {
+    color: #d0d0d2;
+}
