@@ -22,30 +22,10 @@ services:
     name: react-frontend
     env: node
     region: oregon
-    buildCommand: "cd react-client && npm install && npm run build"
+    buildCommand: "cd react-client && npm install && npm run build && cp build/index.html build/404.html"
     staticPublishPath: ./react-client/build
     plan: free
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: no-cache
     routes:
-      # Serve static assets
-      - type: rewrite
-        source: /static/*
-        destination: /static/$1
-      # Serve other assets
-      - type: rewrite
-        source: /favicon.ico
-        destination: /favicon.ico
-      - type: rewrite
-        source: /manifest.json
-        destination: /manifest.json
-      # Handle API calls (if needed)
-      - type: rewrite
-        source: /api/*
-        destination: https://django-api.onrender.com$1
-      # Fallback to index.html for all other routes (SPA support)
       - type: rewrite
         source: /*
         destination: /index.html

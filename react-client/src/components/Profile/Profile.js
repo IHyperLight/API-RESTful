@@ -14,6 +14,8 @@ function Profile() {
     });
     const [profileImg, setProfileImg] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const user = localStorage.getItem("id_user");
     const token = localStorage.getItem("token");
@@ -69,13 +71,31 @@ function Profile() {
     }, [user, token]);
 
     useEffect(() => {
-        if (!user || !token) {
-            navigate("/login");
-            return;
-        }
+        const checkAuth = async () => {
+            setIsLoading(true);
+            
+            if (!user || !token) {
+                setIsAuthenticated(false);
+                setIsLoading(false);
+                navigate("/login");
+                return;
+            }
 
-        // Cargar datos del usuario
-        loadUserData();
+            try {
+                // Verificar que el token sea válido intentando cargar datos
+                setIsAuthenticated(true);
+                await loadUserData();
+            } catch (error) {
+                console.log("Error de autenticación:", error);
+                setIsAuthenticated(false);
+                localStorage.clear();
+                navigate("/login");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        checkAuth();
     }, [user, token, navigate, loadUserData]);
 
     const upload_img = () => {
@@ -182,6 +202,28 @@ function Profile() {
         localStorage.clear();
         navigate("/");
     };
+
+    // Mostrar loading mientras se verifica autenticación
+    if (isLoading) {
+        return (
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
+                backgroundColor: '#1a1a1a',
+                color: 'white',
+                fontSize: '18px'
+            }}>
+                Cargando perfil...
+            </div>
+        );
+    }
+
+    // Si no está autenticado, no mostrar nada (ya redirige a login)
+    if (!isAuthenticated) {
+        return null;
+    }
 
     return (
         <div className="Profile-container">
