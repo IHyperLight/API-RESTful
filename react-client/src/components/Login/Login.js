@@ -6,7 +6,7 @@ import API_BASE_URL from "../../config/api";
 
 function Login() {
     let navigate = useNavigate();
-    
+
     const consumir_login = () => {
         var postData = {
             username: document.getElementById("username").value,

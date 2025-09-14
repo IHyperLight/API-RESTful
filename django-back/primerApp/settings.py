@@ -31,7 +31,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "assets")
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECRET KEY INFORMATION
-SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-default-key-for-development-only-change-in-production")
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    "django-insecure-default-key-for-development-only-change-in-production",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
@@ -55,10 +58,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     # Added components
-    "primerComponente",
     "Login",
     "Registro",
-    "loadImage",
     "Profile",
     # Libraries added to the project
     "rest_framework",
@@ -164,7 +165,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

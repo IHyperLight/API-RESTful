@@ -7,14 +7,14 @@ import API_BASE_URL from "../../config/api";
 function Profile() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
-        username: '',
-        email: '',
-        first_name: '',
-        last_name: ''
+        username: "",
+        email: "",
+        first_name: "",
+        last_name: "",
     });
-    const [profileImg, setProfileImg] = useState('');
+    const [profileImg, setProfileImg] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
-    
+
     const user = localStorage.getItem("id_user");
     const token = localStorage.getItem("token");
 
@@ -37,7 +37,7 @@ function Profile() {
                     username: response.data.username,
                     email: response.data.email,
                     first_name: response.data.first_name,
-                    last_name: response.data.last_name
+                    last_name: response.data.last_name,
                 });
             })
             .catch((error) => {
@@ -55,12 +55,16 @@ function Profile() {
                 if (response.data.url_img) {
                     setProfileImg(`${API_BASE_URL}` + response.data.url_img);
                 } else {
-                    setProfileImg("https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM=");
+                    setProfileImg(
+                        "https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM="
+                    );
                 }
             })
             .catch((error) => {
                 // Usar imagen por defecto si no hay imagen de perfil
-                setProfileImg("https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM=");
+                setProfileImg(
+                    "https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM="
+                );
             });
     }, [user, token]);
 
@@ -69,7 +73,7 @@ function Profile() {
             navigate("/login");
             return;
         }
-        
+
         // Cargar datos del usuario
         loadUserData();
     }, [user, token, navigate, loadUserData]);
@@ -92,7 +96,8 @@ function Profile() {
                     if (response.data === "put_img") {
                         put_img();
                     } else {
-                        const newProfileImg = `${API_BASE_URL}` + response.data.url_img;
+                        const newProfileImg =
+                            `${API_BASE_URL}` + response.data.url_img;
                         setProfileImg(newProfileImg);
                         // Recargar datos del usuario
                         loadUserData();
@@ -111,16 +116,12 @@ function Profile() {
         putData.append("url_img", selectedFile);
 
         axios
-            .put(
-                `${API_BASE_URL}/api/v1/profile/user/` + user + "/",
-                putData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: "Token " + token,
-                    },
-                }
-            )
+            .put(`${API_BASE_URL}/api/v1/profile/user/` + user + "/", putData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: "Token " + token,
+                },
+            })
             .then((response) => {
                 const newProfileImg = `${API_BASE_URL}` + response.data.url_img;
                 setProfileImg(newProfileImg);
@@ -140,7 +141,8 @@ function Profile() {
                 },
             })
             .then((response) => {
-                const defaultImg = "https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM=";
+                const defaultImg =
+                    "https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM=";
                 setProfileImg(defaultImg);
                 // Recargar datos del usuario
                 loadUserData();
@@ -149,12 +151,12 @@ function Profile() {
 
     let edit_user = () => {
         let putData = new FormData();
-        
+
         // Usar los valores del estado de React
-        putData.append("username", userData.username || '');
-        putData.append("email", userData.email || '');
-        putData.append("first_name", userData.first_name || '');
-        putData.append("last_name", userData.last_name || '');
+        putData.append("username", userData.username || "");
+        putData.append("email", userData.email || "");
+        putData.append("first_name", userData.first_name || "");
+        putData.append("last_name", userData.last_name || "");
 
         axios
             .put(
@@ -185,15 +187,23 @@ function Profile() {
         <div className="Profile-container">
             <div className="Profile-left">
                 <div className="Profile-image">
-                    <img alt="img" src={profileImg || 'https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM='} />
+                    <img
+                        alt="img"
+                        src={
+                            profileImg ||
+                            "https://media.istockphoto.com/vectors/user-icon-human-person-symbol-social-profile-icon-avatar-login-sign-vector-id1316420668?k=20&m=1316420668&s=612x612&w=0&h=Z2cc0HZXkovLCVmoJ8LCIG5eWMetgOX9oLe-lF0OWJM="
+                        }
+                    />
                 </div>
                 <div className="Profile-image-options">
                     <label id="Profile-image-submit1">
                         Subir
-                        <input 
-                            accept="image/*" 
-                            type="file" 
-                            onChange={(e) => handleFileSelect(e.target.files[0])}
+                        <input
+                            accept="image/*"
+                            type="file"
+                            onChange={(e) =>
+                                handleFileSelect(e.target.files[0])
+                            }
                         />
                     </label>
                     <button id="Profile-image-submit2" onClick={upload_img}>
@@ -208,38 +218,58 @@ function Profile() {
                 <div className="Profile-flexbox">
                     <div className="Profile-item" id="Profile-margin">
                         <label>Usuario</label>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={userData.username}
-                            onChange={(e) => setUserData({...userData, username: e.target.value})}
-                            required 
+                            onChange={(e) =>
+                                setUserData({
+                                    ...userData,
+                                    username: e.target.value,
+                                })
+                            }
+                            required
                         />
                     </div>
                     <div className="Profile-item">
                         <label>Correo</label>
-                        <input 
-                            type="email" 
+                        <input
+                            type="email"
                             value={userData.email}
-                            onChange={(e) => setUserData({...userData, email: e.target.value})}
-                            required 
+                            onChange={(e) =>
+                                setUserData({
+                                    ...userData,
+                                    email: e.target.value,
+                                })
+                            }
+                            required
                         />
                     </div>
                     <div className="Profile-item">
                         <label>Nombres</label>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={userData.first_name}
-                            onChange={(e) => setUserData({...userData, first_name: e.target.value})}
-                            required 
+                            onChange={(e) =>
+                                setUserData({
+                                    ...userData,
+                                    first_name: e.target.value,
+                                })
+                            }
+                            required
                         />
                     </div>
                     <div className="Profile-item">
                         <label>Apellidos</label>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={userData.last_name}
-                            onChange={(e) => setUserData({...userData, last_name: e.target.value})}
-                            required 
+                            onChange={(e) =>
+                                setUserData({
+                                    ...userData,
+                                    last_name: e.target.value,
+                                })
+                            }
+                            required
                         />
                     </div>
                     <div className="Profile-item">

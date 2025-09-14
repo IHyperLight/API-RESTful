@@ -31,8 +31,6 @@ urlpatterns = [
     path("", include(router.urls)),
     re_path(r"^api/", include("Login.urls")),
     re_path(r"^api/v1/registro/", include("Registro.urls")),
-    re_path(r"^api/v1/primer_componente/", include("primerComponente.urls")),
-    re_path(r"^api/v1/loadImage/", include("loadImage.urls")),
     re_path(r"assets/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     re_path(r"^api/v1/profile/", include("Profile.urls")),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
